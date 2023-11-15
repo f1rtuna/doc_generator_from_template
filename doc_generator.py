@@ -6,7 +6,7 @@ import re
 
 #dictionary for key words to look for and replace in template file
 replace_dict = {
-    "addressed_to": sys.argv[2]
+    "company_name": sys.argv[2]
 }
 
 # file path to template given as command line arguments
@@ -28,7 +28,7 @@ for paragraph in doc_contents:
         keyword = re.search(r"\{([A-Za-z0-9_]+)\}", word)
         if keyword and keyword.group(1) in replace_dict:
             #NOTE: I'm personally adding an apostrphe s to the end of the word
-            new_paragraph += (replace_dict[keyword.group(1)])
+            new_paragraph += (replace_dict[keyword.group(1)] + "'s")
         else:
             new_paragraph += word
         new_paragraph += " "
@@ -49,5 +49,5 @@ for p in range(len(new_doc_contents)):
         para.paragraph_format.first_line_indent = Inches(0.5)
     para.paragraph_format.line_spacing = 1
 
-new_document.save(sys.argv[2] + ".docx")
+new_document.save(sys.argv[2] + "_cover_letter.docx")
 
